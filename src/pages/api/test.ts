@@ -1,7 +1,11 @@
+import { PrismaClient } from "@prisma/client";
 import type { APIRoute } from "astro";
 
-export const GET: APIRoute = () => {
-  return new Response("Dale pa", {
+const prisma = new PrismaClient();
+
+export const GET: APIRoute = async () => {
+  const tal = await prisma.day.findMany({});
+  return new Response(JSON.stringify(tal), {
     status: 200,
   });
 };
